@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeopleDesk | Employee Management</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">P</div><div><b>PeopleDesk</b><small>Employee Portal</small></div></div>
+      <div class="nav-label">WORKSPACE</div>
+      <button class="nav-item active" data-page="dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</button>
+      <button class="nav-item" data-page="employees"><i data-lucide="users"></i> Employees</button>
+      <button class="nav-item" data-page="attendance"><i data-lucide="calendar-check"></i> Attendance</button>
+      <button class="nav-item" data-page="leaves"><i data-lucide="calendar-days"></i> Leave Requests</button>
+      <div class="sidebar-bottom"><div class="help-card"><i data-lucide="life-buoy"></i><b>Need help?</b><p>Manage your team with ease.</p></div><button id="resetData" class="reset-btn"><i data-lucide="refresh-ccw"></i> Reset demo data</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><button class="menu-btn" id="menuBtn"><i data-lucide="menu"></i></button><div class="crumb">Workspace <span>/</span> <b id="pageCrumb">Dashboard</b></div><div class="top-actions"><div class="today" id="todayLabel"></div><div class="avatar">AD</div><div class="user-info"><b>Admin User</b><small>Administrator</small></div></div></header>
+      <section class="content">
+        <div class="page active" id="dashboardPage">
+          <div class="welcome-row"><div><p class="eyebrow">OVERVIEW</p><h1>Good morning, Admin <span>✦</span></h1><p class="muted">Here's what's happening with your team today.</p></div><button class="primary-btn" data-open-add><i data-lucide="plus"></i> Add employee</button></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Total employees</span><span class="stat-icon purple"><i data-lucide="users"></i></span></div><strong id="totalEmployees">0</strong><small><span class="positive">● Active workforce</span></small></article>
+            <article class="stat-card"><div class="stat-top"><span>Present today</span><span class="stat-icon green"><i data-lucide="user-check"></i></span></div><strong id="presentCount">0</strong><small class="muted">Based on attendance records</small></article>
+            <article class="stat-card"><div class="stat-top"><span>On leave</span><span class="stat-icon orange"><i data-lucide="calendar-clock"></i></span></div><strong id="leaveCount">0</strong><small class="muted">Approved leave today</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Departments</span><span class="stat-icon blue"><i data-lucide="building-2"></i></span></div><strong id="departmentCount">0</strong><small class="muted">Across the organization</small></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel"><div class="panel-heading"><div><h2>Recent employees</h2><p>Latest team members added</p></div><button class="text-btn" data-goto="employees">View all <span>→</span></button></div><div class="table-wrap"><table><thead><tr><th>EMPLOYEE</th><th>DEPARTMENT</th><th>ROLE</th><th>STATUS</th></tr></thead><tbody id="recentEmployees"></tbody></table></div></article>
+            <article class="panel quick-panel"><div class="panel-heading"><div><h2>Quick actions</h2><p>Common administration tasks</p></div></div><button class="quick-action" data-open-add><span class="quick-icon purple"><i data-lucide="user-plus"></i></span><span><b>Add employee</b><small>Create a new employee profile</small></span><i data-lucide="chevron-right"></i></button><button class="quick-action" data-goto="attendance"><span class="quick-icon green"><i data-lucide="clipboard-check"></i></span><span><b>Mark attendance</b><small>Update today's attendance</small></span><i data-lucide="chevron-right"></i></button><button class="quick-action" data-goto="leaves"><span class="quick-icon orange"><i data-lucide="calendar-plus"></i></span><span><b>Review leave requests</b><small>Approve or reject requests</small></span><i data-lucide="chevron-right"></i></button></article>
+          </div>
+        </div>
+        <div class="page" id="employeesPage">
+          <div class="page-heading"><div><p class="eyebrow">PEOPLE</p><h1>Employees</h1><p class="muted">View and manage your employee directory.</p></div><button class="primary-btn" data-open-add><i data-lucide="plus"></i> Add employee</button></div>
+          <div class="panel"><div class="toolbar"><div class="search-box"><i data-lucide="search"></i><input id="employeeSearch" placeholder="Search by name, email or ID..."></div><select id="departmentFilter"><option value="">All departments</option></select><select id="statusFilter"><option value="">All statuses</option><option>Active</option><option>Inactive</option></select></div><div class="table-wrap"><table><thead><tr><th>EMPLOYEE</th><th>EMPLOYEE ID</th><th>DEPARTMENT</th><th>POSITION</th><th>JOINING DATE</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="employeeTable"></tbody></table></div><div class="table-footer" id="employeeFooter"></div></div>
+        </div>
+        <div class="page" id="attendancePage">
+          <div class="page-heading"><div><p class="eyebrow">TIME & PRESENCE</p><h1>Attendance</h1><p class="muted">Record and review daily attendance.</p></div><div class="date-control"><i data-lucide="calendar"></i><input type="date" id="attendanceDate"></div></div>
+          <div class="stats-grid compact-stats"><article class="stat-card"><span>Present</span><strong id="attPresent">0</strong></article><article class="stat-card"><span>Absent</span><strong id="attAbsent">0</strong></article><article class="stat-card"><span>On leave</span><strong id="attLeave">0</strong></article></div>
+          <div class="panel"><div class="toolbar"><div class="search-box"><i data-lucide="search"></i><input id="attendanceSearch" placeholder="Search employees..."></div><button class="secondary-btn" id="markAllPresent">Mark all present</button></div><div class="table-wrap"><table><thead><tr><th>EMPLOYEE</th><th>DEPARTMENT</th><th>STATUS</th><th>UPDATE STATUS</th></tr></thead><tbody id="attendanceTable"></tbody></table></div></div>
+        </div>
+        <div class="page" id="leavesPage">
+          <div class="page-heading"><div><p class="eyebrow">TIME OFF</p><h1>Leave requests</h1><p class="muted">Review employee leave applications.</p></div></div>
+          <div class="stats-grid compact-stats"><article class="stat-card"><span>Pending requests</span><strong id="pendingLeaves">0</strong></article><article class="stat-card"><span>Approved</span><strong id="approvedLeaves">0</strong></article><article class="stat-card"><span>Rejected</span><strong id="rejectedLeaves">0</strong></article></div>
+          <div class="panel"><div class="toolbar"><div class="search-box"><i data-lucide="search"></i><input id="leaveSearch" placeholder="Search employee or leave type..."></div><select id="leaveStatusFilter"><option value="">All requests</option><option>Pending</option><option>Approved</option><option>Rejected</option></select></div><div class="table-wrap"><table><thead><tr><th>EMPLOYEE</th><th>LEAVE TYPE</th><th>DATES</th><th>REASON</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="leaveTable"></tbody></table></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="employeeModal"><div class="modal"><div class="modal-head"><div><h2 id="modalTitle">Add employee</h2><p>Enter employee details below.</p></div><button class="icon-btn" id="closeModal"><i data-lucide="x"></i></button></div><form id="employeeForm"><input type="hidden" id="editId"><div class="form-grid"><label>Full name *<input id="empName" required placeholder="e.g. Priya Sharma"></label><label>Email address *<input id="empEmail" type="email" required placeholder="name@company.com"></label><label>Phone<input id="empPhone" type="tel" placeholder="+91 98765 43210"></label><label>Department *<select id="empDepartment" required><option value="">Select department</option><option>Engineering</option><option>Human Resources</option><option>Finance</option><option>Sales</option><option>Marketing</option><option>Operations</option><option>Support</option></select></label><label>Position *<input id="empPosition" required placeholder="e.g. Software Engineer"></label><label>Joining date *<input id="empJoining" type="date" required></label><label>Status<select id="empStatus"><option>Active</option><option>Inactive</option></select></label></div><div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">Cancel</button><button class="primary-btn" type="submit">Save employee</button></div></form></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
